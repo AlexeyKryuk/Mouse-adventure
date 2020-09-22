@@ -1,47 +1,58 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Spawner;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChunkPlacerRunner : MonoBehaviour
+public class ChunkPlacerRunner : ObjectPool
 {
     [SerializeField] private Transform _player;
-
-    [SerializeField] private Chunk _сhunkPrefab;
-    [SerializeField] private Chunk _firstChunk;
-
     [SerializeField] private int _distance;
+    [SerializeField] private SpawnObject _сhunkPrefab;
+    [SerializeField] private SpawnObject _firstChunk;
 
-    private List<Chunk> _spawnedChunks = new List<Chunk>();
+    private SpawnObject _previuosChunk;
+    private SpawnObject _currentChunk;
 
     void Start()
     {
-        _spawnedChunks.Add(_firstChunk);
+        Initialize(_сhunkPrefab);
+
+        _currentChunk = _firstChunk;
+        _previuosChunk = _firstChunk;
     }
 
     private void Update()
     {
-        if (_player.position.z > _spawnedChunks[_spawnedChunks.Count - 1].End.position.z - _distance)
+        if (_player.position.z > _currentChunk.End.position.z - _distance)
         {
             SpawnedChunk();
         }
-        if (_player.position.z > _spawnedChunks[0].End.position.z + _distance / 3)
+        else if (_player.position.z > _previuosChunk.End.position.z + _distance / 3)
         {
-            Destroy(_spawnedChunks[0].gameObject);
-            _spawnedChunks.RemoveAt(0);
+            RemoveChunk(_previuosChunk);
         }
     }
 
     private void SpawnedChunk()
     {
-        Chunk newChunk = Instantiate(_сhunkPrefab);
-        newChunk.transform.position = _spawnedChunks[_spawnedChunks.Count - 1].End.position - newChunk.Begin.localPosition;
+        if (TryGetObject(out SpawnObject chunk))
+        {
+            _previuosChunk = _currentChunk;
 
-        _spawnedChunks.Add(newChunk);
+            SetChunk(chunk);
+
+            _currentChunk = chunk;
+        }
     }
 
-    private void SpawnedChunk(Chunk chunk)
+    private void RemoveChunk(SpawnObject chunk)
     {
-        Chunk newChunk = Instantiate(chunk);
-        newChunk.transform.position = _spawnedChunks[_spawnedChunks.Count - 1].End.position - newChunk.Begin.localPosition;
+        chunk.gameObject.SetActive(false);
+    }
+
+    private void SetChunk(SpawnObject chunk)
+    {
+        chunk.transform.position = _currentChunk.End.position - chunk.Begin.localPosition;
+        chunk.gameObject.SetActive(true);
     }
 }
