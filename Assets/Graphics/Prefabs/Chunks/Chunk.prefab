@@ -493,8 +493,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1dc64d3c2bce6e4cb5333301c4fe7e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _begin: {fileID: 1314011135789407850}
+  _end: {fileID: 8462330258174149592}
   _isFirstChunk: 0
-  _isLastChunk: 0
   _housePrefabs:
   - {fileID: 1865757609968222888, guid: 5e964887999ff7148b89193e75980454, type: 3}
   - {fileID: 6841534515463816532, guid: de484a135de0fb742a2d0314bcd2624e, type: 3}
@@ -539,8 +540,6 @@ MonoBehaviour:
   - {fileID: 6352375337962763439}
   _numberOfHouse: 1
   _numberOfStripes: 3
-  Begin: {fileID: 1314011135789407850}
-  End: {fileID: 8462330258174149592}
 --- !u!1 &7796401801909322487
 GameObject:
   m_ObjectHideFlags: 0

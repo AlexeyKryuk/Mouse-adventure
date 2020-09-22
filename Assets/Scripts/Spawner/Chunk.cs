@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chunk : MonoBehaviour
+public class Chunk : SpawnObject
 {
     [SerializeField] private bool _isFirstChunk;
 
@@ -28,10 +28,8 @@ public class Chunk : MonoBehaviour
     [SerializeField] private int _numberOfHouse;
     [SerializeField] private int _numberOfStripes = 3;
 
-    public Transform Begin;
-    public Transform End;
 
-    private Obstacle[] _spawnedObstacles = new Obstacle[3]; //Препятствия
+    private Obstacle[] _spawnedObstacles = new Obstacle[3];
 
     private int _distanceBetweenCoins = 3;
 
@@ -50,11 +48,10 @@ public class Chunk : MonoBehaviour
 
         for (int i = 0; i < _numberOfHouse; i++)
         {
-            // Размещаем дом слева
             newHouse = Instantiate(_housePrefabs[UnityEngine.Random.Range(0, _housePrefabs.Length)], _leftSide);
+            Debug.Log(Begin.position);
             newHouse.transform.position = _startPoint.position - newHouse.Begin.localPosition;
 
-            // Размещаем дом справа
             newHouse = Instantiate(_housePrefabs[UnityEngine.Random.Range(0, _housePrefabs.Length)], _rightSide);
             newHouse.transform.Rotate(Vector3.up, 180f);
             newHouse.transform.position = _startPoint.position + newHouse.End.localPosition;
@@ -77,48 +74,48 @@ public class Chunk : MonoBehaviour
         for (int i = 0; i < _numberOfStripes; i++)
         {
             if (i == 1)
-                maxRange = 18; // На средней полосе, при броске монеты не учитываем машины 
+                maxRange = 18;
             else
                 maxRange = 21; 
 
-            int typeOfObstacle = UnityEngine.Random.Range(minRange, maxRange);  // Бросаем монету (выбираем какой тип препятсвтия выставим)
+            int typeOfObstacle = UnityEngine.Random.Range(minRange, maxRange);
 
-            if (typeOfObstacle >= 1 && typeOfObstacle <= 6)                     // 30 % шанс на Enemy
+            if (typeOfObstacle >= 1 && typeOfObstacle <= 6)
             {
                 newObstacle = Instantiate(_enemyPrefabs[UnityEngine.Random.Range(0, _enemyPrefabs.Length)]);
                 minRange = 7;
             }
-            else if (typeOfObstacle >= 7 && typeOfObstacle <= 8)                // 10 % шанс на Ice
+            else if (typeOfObstacle >= 7 && typeOfObstacle <= 8)
             {
                 newObstacle = Instantiate(_icePrefabs[UnityEngine.Random.Range(0, _icePrefabs.Length)]);
             }
-            else if (typeOfObstacle == 9)                                       // 5 % шанс на Composite
+            else if (typeOfObstacle == 9)
             {
-                if (i == 0) // Только для первой полосы
+                if (i == 0)
                 {
                     newObstacle = Instantiate(_compositePrefabs[UnityEngine.Random.Range(0, _compositePrefabs.Length)]);
-                    newObstacle.transform.position = _anchors[i].position - newObstacle.AnchorPoint.localPosition; // Ставим препятсвтие в позицию
+                    newObstacle.transform.position = _anchors[i].position - newObstacle.AnchorPoint.localPosition;
 
                     _spawnedObstacles[0] = newObstacle;
                     _spawnedObstacles[1] = newObstacle;
                     _spawnedObstacles[2] = newObstacle;
                     break;
                 }
-                else        // Иначе - ставим препятствие Ice
+                else
                     newObstacle = Instantiate(_icePrefabs[UnityEngine.Random.Range(0, _icePrefabs.Length)]);
             }
-            else if (typeOfObstacle >= 10 && typeOfObstacle <= 18)              // 40 % шанс на Barrier
+            else if (typeOfObstacle >= 10 && typeOfObstacle <= 18)
             {
                 newObstacle = Instantiate(_barrierPrefabs[UnityEngine.Random.Range(0, _barrierPrefabs.Length)]);
             }
-            else                                                                // 15 % шанс на Car
+            else                                                                
             {
                 newObstacle = Instantiate(_carPrefabs[UnityEngine.Random.Range(0, _carPrefabs.Length)]);
             }
 
-            newObstacle.transform.SetParent(_anchors[i]);   // Делаем новое препятсвтие потомком Якоря на полосе
+            newObstacle.transform.SetParent(_anchors[i]);
 
-            if (i != 0) // Первое препятсвтие выставляем без учёта его MPD, последующие - проверяем на mpd
+            if (i != 0) 
             {
                 if (deltaZ.z < newObstacle.MinimumPossibleDistance)
                 {
@@ -132,13 +129,13 @@ public class Chunk : MonoBehaviour
                 }
             }
 
-            deltaZ = new Vector3(0f, 0f, UnityEngine.Random.Range(minDistance, maxDistance)); // Определяем смещение по оси Z относительно Якоря на полосе
+            deltaZ = new Vector3(0f, 0f, UnityEngine.Random.Range(minDistance, maxDistance)); 
 
-            Vector3 newPosition = _anchors[i].position - newObstacle.AnchorPoint.localPosition - deltaZ; // Определяем новую позицию нового препятствия
+            Vector3 newPosition = _anchors[i].position - newObstacle.AnchorPoint.localPosition - deltaZ; 
 
-            newObstacle.transform.position = newPosition; // Ставим препятсвтие в эту позицию
+            newObstacle.transform.position = newPosition; 
 
-            _spawnedObstacles[i] = newObstacle; // Добавляем препятствие в список уже размещенных препятствий
+            _spawnedObstacles[i] = newObstacle; 
         }
 
         GeneratePoints();

@@ -493,8 +493,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1dc64d3c2bce6e4cb5333301c4fe7e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _begin: {fileID: 1314011135789407850}
+  _end: {fileID: 8462330258174149592}
   _isFirstChunk: 0
-  _isLastChunk: 0
   _housePrefabs:
   - {fileID: 1865757609968222888, guid: 5e964887999ff7148b89193e75980454, type: 3}
   - {fileID: 6841534515463816532, guid: de484a135de0fb742a2d0314bcd2624e, type: 3}
@@ -519,7 +520,7 @@ MonoBehaviour:
   - {fileID: -2799481474016683858, guid: 0dff7cf6d910ffd40b005e0987beb905, type: 3}
   _coinPrefab: {fileID: 7208188074489012633, guid: 9ba3a04e5ced04a49b3638063c435522,
     type: 3}
-  _snowballPrefab: {fileID: 6633082435957371104, guid: 5b36556840f62124cb7ac78b34609f1d,
+  _snowballPrefab: {fileID: -2241719696597683121, guid: 1c8a6afa83f8fb241871b5096d1f0db8,
     type: 3}
   _heartPrefab: {fileID: 8926644344750995572, guid: 668e6aec0233d7f48afe1a1ca8ca2e4a,
     type: 3}
@@ -539,8 +540,6 @@ MonoBehaviour:
   - {fileID: 6352375337962763439}
   _numberOfHouse: 1
   _numberOfStripes: 3
-  Begin: {fileID: 1314011135789407850}
-  End: {fileID: 8462330258174149592}
 --- !u!1 &7796401801909322487
 GameObject:
   m_ObjectHideFlags: 0
