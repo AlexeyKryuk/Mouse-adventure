@@ -613,8 +613,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7181329390088626506}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -4.56, y: -9.413342e-17, z: 11.24}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7181329391314352247}
@@ -622,7 +622,7 @@ Transform:
   - {fileID: 2512983437582027290}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &7181329390088626511
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -684,11 +684,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ec0d0b63f8a2444bd1b454d82ceddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _begin: {fileID: 0}
+  _end: {fileID: 0}
   _anchorPoint: {fileID: 2512983437582027290}
-  _currentSpeed: 5
-  _damage: 2
   _giantCoinPrefab: {fileID: 5698471082714742276, guid: c4a85e56c9415fd4a9cd9a80ec65c17e,
     type: 3}
+  _speed: 3
+  _damage: 2
 --- !u!82 &8267862243854378446
 AudioSource:
   m_ObjectHideFlags: 0

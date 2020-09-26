@@ -10,15 +10,16 @@ public class Enemy : Obstacle
 {
     [SerializeField] private Transform _anchorPoint;
     [SerializeField] private Coin _giantCoinPrefab;
-    [SerializeField] private float _currentSpeed;
+    [SerializeField] private float _speed;
     [SerializeField] private int _damage = 2;
 
+    private float _currentSpeed;
     private Rigidbody _rb;
     private Animator _animator;
     private Collider _collider;
     private AudioSource _soundOfDeath;
 
-    private int _mpd = 20;
+    private float _mpd = 1;
 
     private void Awake()
     {
@@ -26,6 +27,14 @@ public class Enemy : Obstacle
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider>();
         _soundOfDeath = GetComponent<AudioSource>();
+
+        transform.Rotate(Vector3.up * 180f);
+    }
+
+    private void OnEnable()
+    {
+        _currentSpeed = _speed;
+        _collider.enabled = true;
     }
 
     private void Update()
@@ -38,7 +47,7 @@ public class Enemy : Obstacle
         get { return _anchorPoint; }
     }
 
-    public override int MinimumPossibleDistance 
+    public override float MinimumPossibleDistance 
     { 
         get => _mpd; 
         protected set => _mpd = value; 
@@ -64,7 +73,7 @@ public class Enemy : Obstacle
 
     public void Die()
     {
-        Coin giantCoin = Instantiate(_giantCoinPrefab, transform, true);
+        Coin giantCoin = Instantiate(_giantCoinPrefab);
         giantCoin.transform.position = transform.position;
 
         _animator.SetTrigger("Death");
@@ -74,6 +83,12 @@ public class Enemy : Obstacle
         _collider.enabled = false;
 
         _soundOfDeath.Play();
-        Destroy(this.gameObject, 2.5f);
+
+        Invoke("TurnOff", 0.5f);
+    }
+
+    private void TurnOff()
+    {
+        gameObject.SetActive(false);
     }
 }

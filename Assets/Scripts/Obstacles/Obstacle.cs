@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class Obstacle : MonoBehaviour
+abstract public class Obstacle : SpawnObject
 {
-    public abstract int MinimumPossibleDistance { get; protected set; }
+    public abstract float MinimumPossibleDistance { get; protected set; }
 
     public abstract Transform AnchorPoint { get; }
 

@@ -6,7 +6,7 @@ public class BackAndFrontCar : Obstacle
 {
     private int _damage = 10;
 
-    public override int MinimumPossibleDistance { get; protected set; }
+    public override float MinimumPossibleDistance { get; protected set; }
 
     public override Transform AnchorPoint { get; }
 

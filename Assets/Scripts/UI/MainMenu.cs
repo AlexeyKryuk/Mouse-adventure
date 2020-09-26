@@ -6,21 +6,19 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] private Player _player;
     [SerializeField] private Text _enemyText;
     [SerializeField] private Text _coinsText;
     [SerializeField] private Text _candyText;
-
-    public GameObject LevelsWindow;
-    public GameObject Menu;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        _coinsText.text = UIController.CountCoins.ToString();
-        _enemyText.text = UIController.CountEnemy.ToString();
-        _candyText.text = UIController.CountCandy.ToString();
+        _coinsText.text = _player.CountOfCoins.ToString();
+        _enemyText.text = _player.CountOfKilledEnemies.ToString();
+        _candyText.text = _player.CountOfCandies.ToString();
     }
 
     public void Play()
@@ -36,11 +34,5 @@ public class MainMenu : MonoBehaviour
     public void PlayRunner()
     {
         SceneManager.LoadScene("RunnerScene");
-    }
-
-    public void Levels(bool value)
-    {
-        LevelsWindow.SetActive(value);
-        Menu.SetActive(!value);
     }
 }

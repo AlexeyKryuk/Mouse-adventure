@@ -1082,8 +1082,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4550988963350993916}
-  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: -11.04411, y: 5.670515e-17, z: -13.356185}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 454872164148111886}
@@ -1091,7 +1091,7 @@ Transform:
   - {fileID: 5946113193669002797}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5431821644857390570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1104,11 +1104,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ec0d0b63f8a2444bd1b454d82ceddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _begin: {fileID: 0}
+  _end: {fileID: 0}
   _anchorPoint: {fileID: 5946113193669002797}
-  _currentSpeed: 5
-  _damage: 2
   _giantCoinPrefab: {fileID: 5698471082714742276, guid: c4a85e56c9415fd4a9cd9a80ec65c17e,
     type: 3}
+  _speed: 3
+  _damage: 2
 --- !u!95 &4462655653235927387
 Animator:
   serializedVersion: 3
