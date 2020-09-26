@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-[RequireComponent(typeof(MeshRenderer))]
 public class Ice : Obstacle
 {
     [SerializeField] private ParticleSystem _iceEffect;
@@ -11,17 +10,16 @@ public class Ice : Obstacle
     [SerializeField] private Material _defaultIce;
     [SerializeField] private Transform _anchorPoint;
     [SerializeField] private int _damage = 1;
-
-    private Material[] _materials;
+    [SerializeField] private Material[] _materials;
+    
     private AudioSource _audio;
 
     private float _startTime;
-    private int _mpd = 14;
+    private float _mpd = 3;
     private float delay = 1.5f;
 
     private void Awake()
     {
-        _materials = GetComponent<MeshRenderer>().materials;
         _audio = GetComponent<AudioSource>();
     }
 
@@ -30,7 +28,7 @@ public class Ice : Obstacle
         get { return _anchorPoint; }
     }
 
-    public override int MinimumPossibleDistance
+    public override float MinimumPossibleDistance
     {
         get => _mpd;
         protected set => _mpd = value;
@@ -77,6 +75,5 @@ public class Ice : Obstacle
     private void ChangeMaterial(Material material)
     {
         _materials[0] = material;
-        GetComponent<MeshRenderer>().materials = _materials;
     }
 }

@@ -9,7 +9,7 @@ public class Barrier : Obstacle
     [SerializeField] private int _damage = 3;
 
     private Collider _collider;
-    private int _mpd = 8;
+    private float _mpd = 2;
 
     private void Awake()
     {
@@ -21,7 +21,7 @@ public class Barrier : Obstacle
         get { return _anchorPoint; }
     }
 
-    public override int MinimumPossibleDistance
+    public override float MinimumPossibleDistance
     {
         get => _mpd;
         protected set => _mpd = value;

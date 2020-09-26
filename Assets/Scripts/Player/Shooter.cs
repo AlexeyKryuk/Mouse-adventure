@@ -3,32 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(AudioSource))]
 public class Shooter : MonoBehaviour
 {
-    [SerializeField] private Player _player;
     [SerializeField] private Snowball _snowballPrefab;
     [SerializeField] private Transform _arrowPoint;
-    [SerializeField] private static int _snowNumber;
-
-    private Animator _animator;
-    private AudioSource _soundOfThrow;
+    [SerializeField] private static int _snowNumber = 10;
+    [SerializeField] private Animator _mouseAnimator;
+    [SerializeField] private AudioSource _soundOfThrow;
 
     public static int SnowNumber => _snowNumber;
 
     public event UnityAction SnowballThrown;
-
-    private void Awake()
-    {
-        _animator = GetComponent<Animator>();
-        _soundOfThrow = GetComponent<AudioSource>();
-    }
-
-    private void Start()
-    {
-        _snowNumber = 10;
-    }
+    public event UnityAction EnemyKilled;
 
     private void Update()
     {
@@ -43,7 +29,7 @@ public class Shooter : MonoBehaviour
 
     private void ThrowSnowBall()
     {
-        _animator.SetTrigger("Attack");
+        _mouseAnimator.SetTrigger("Attack");
         _soundOfThrow.Play();
 
         InitSnowball();
@@ -64,6 +50,6 @@ public class Shooter : MonoBehaviour
 
     public void OnEnemyKilled()
     {
-        _player.OnEnemyKilled();
+        EnemyKilled?.Invoke();
     }
 }

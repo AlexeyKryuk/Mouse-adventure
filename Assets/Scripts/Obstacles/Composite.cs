@@ -10,7 +10,7 @@ public class Composite : Obstacle
 
     private Collider _collider;
 
-    private int _mpd = 16;
+    private float _mpd = 3;
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class Composite : Obstacle
         get { return _anchorPoint; }
     }
 
-    public override int MinimumPossibleDistance
+    public override float MinimumPossibleDistance
     {
         get => _mpd;
         protected set => _mpd = value;

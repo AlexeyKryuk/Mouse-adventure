@@ -90,9 +90,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1649793169531727374}
-  - component: {fileID: 6841534515463816532}
+  - component: {fileID: 2052263936760781232}
   m_Layer: 0
-  m_Name: HouseChunk 2 1
+  m_Name: HouseChunk 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,7 +128,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6841534515463816532
+--- !u!114 &2052263936760781232
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,11 +137,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1508496215760339734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 914118140e18bde408b7d08a9ae54662, type: 3}
+  m_Script: {fileID: 11500000, guid: 78c6f9250266bac4984f9e8b80b621e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Begin: {fileID: 5293584746059552717}
-  End: {fileID: 5943124948681869947}
+  _begin: {fileID: 5293584746059552717}
+  _end: {fileID: 5943124948681869947}
 --- !u!1 &2185750108886676546
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,21 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class SceneController : MonoBehaviour 
+public class EscapeMenu : MonoBehaviour 
 {
-    [SerializeField] private GameObject StartMenu;
-    [SerializeField] private GameObject escapeMenu;
+    [SerializeField] private Button RestartButton;
+    [SerializeField] private Button ExitButton;
+    [SerializeField] private GameObject _controlTips;
 
     private bool _isGameStarted = false;
     private bool _isActiveMenu = false;
 
-    public event UnityAction<bool> GamePaused;
-
     private void Awake()
     {
         Time.timeScale = 0;
-        GamePaused?.Invoke(true);
+    }
+
+    private void OnEnable()
+    {
+        RestartButton.onClick.AddListener(OnRestartButtonClick);
+        ExitButton.onClick.AddListener(OnExitButtonClick);
+    }
+
+    private void OnDisable()
+    {
+        RestartButton.onClick.RemoveListener(OnRestartButtonClick);
+        ExitButton.onClick.RemoveListener(OnExitButtonClick);
     }
 
     private void Update()
@@ -27,10 +39,10 @@ public class SceneController : MonoBehaviour
             if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
             {
                 _isGameStarted = true;
-                
+                _controlTips.SetActive(false);
+
+
                 Time.timeScale = 1;
-                StartMenu.SetActive(false);
-                GamePaused?.Invoke(false);
             }
         }
         else
@@ -42,8 +54,8 @@ public class SceneController : MonoBehaviour
                 if (_isActiveMenu)
                 {
                     Time.timeScale = 0;
-                    GamePaused?.Invoke(true);
-                    escapeMenu.SetActive(true);
+                    ExitButton.gameObject.SetActive(true);
+                    RestartButton.gameObject.SetActive(true);
 
                     Cursor.lockState = CursorLockMode.None;
                     Cursor.visible = true;
@@ -51,13 +63,23 @@ public class SceneController : MonoBehaviour
                 else
                 {
                     Time.timeScale = 1;
-                    GamePaused?.Invoke(false);
-                    escapeMenu.SetActive(false);
+                    ExitButton.gameObject.SetActive(false);
+                    RestartButton.gameObject.SetActive(false);
 
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                 }
             }
         }
+    }
+
+    private void OnRestartButtonClick()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void OnExitButtonClick()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

@@ -6,12 +6,15 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Shooter))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private int _health = 10;
     [SerializeField] private List<WolfMovement> _wolfMovements;
     [SerializeField] private ObjectTracking _sled;
     [SerializeField] private Wolf _wolf;
+
+    private Shooter _shooter;
 
     private int _countOfCandies;
     private int _countOfCoins;
@@ -20,6 +23,9 @@ public class Player : MonoBehaviour
     private Animator _animator;
 
     public bool GodMod { get; private set; }
+    public int CountOfCandies => _countOfCandies;
+    public int CountOfCoins => _countOfCoins;
+    public int CountOfKilledEnemies => _countOfKilledEnemies;
 
     public event UnityAction Died;
     public event UnityAction EnemyKilled;
@@ -27,35 +33,31 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _shooter = GetComponent<Shooter>();
     }
 
     private void OnEnable()
     {
         _wolf.TookDamage += OnTookDamage;
         _wolf.PickedUpPoint += OnPickedUpPoint;
+        _shooter.EnemyKilled += OnEnemyKilled;
     }
 
     private void OnDisable()
     {
         _wolf.TookDamage -= OnTookDamage;
         _wolf.PickedUpPoint -= OnPickedUpPoint;
+        _shooter.EnemyKilled -= OnEnemyKilled;
     }
 
     private void OnTookDamage(int damage, string obstacleName)
     {
-        if (!GodMod)
-        {
-            _health -= damage;
-            _animator.SetTrigger(obstacleName);
+        _health -= damage;
+        _animator.SetTrigger(obstacleName);
 
-            if (_health <= 0)
-            {
-                Die();
-            }
-            else
-            {
-                StartCoroutine(SetGodMod());
-            }
+        if (_health <= 0)
+        {
+            Die();
         }
     }
 
@@ -103,14 +105,7 @@ public class Player : MonoBehaviour
         Died?.Invoke();
 
         StopMovement();
-    }
 
-    private IEnumerator SetGodMod()
-    {
-        GodMod = true;
-
-        yield return new WaitForSeconds(1.5f);
-
-        GodMod = false;
+        this.enabled = false;
     }
 }

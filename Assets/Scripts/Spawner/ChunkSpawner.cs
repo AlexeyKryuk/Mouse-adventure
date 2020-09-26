@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChunkPlacerRunner : ObjectPool
+public class ChunkSpawner : ObjectPool
 {
     [SerializeField] private Transform _player;
     [SerializeField] private int _distance;
@@ -13,7 +13,7 @@ public class ChunkPlacerRunner : ObjectPool
     private SpawnObject _previuosChunk;
     private SpawnObject _currentChunk;
 
-    void Start()
+    private void Awake()
     {
         Initialize(_сhunkPrefab);
 
@@ -25,7 +25,7 @@ public class ChunkPlacerRunner : ObjectPool
     {
         if (_player.position.z > _currentChunk.End.position.z - _distance)
         {
-            SpawnedChunk();
+            SpawnChunk();
         }
         else if (_player.position.z > _previuosChunk.End.position.z + _distance / 3)
         {
@@ -33,7 +33,7 @@ public class ChunkPlacerRunner : ObjectPool
         }
     }
 
-    private void SpawnedChunk()
+    private void SpawnChunk()
     {
         if (TryGetObject(out SpawnObject chunk))
         {
